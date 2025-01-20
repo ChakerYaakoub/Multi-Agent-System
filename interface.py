@@ -6,6 +6,8 @@ from cells import NestCell, FoodCell
 CELL_SIZE = 20
 WIDTH, HEIGHT = 600, 600
 
+
+# //Create interface.py (Visual display):
 class Interface:
     def __init__(self, environment):
         # Track last step time

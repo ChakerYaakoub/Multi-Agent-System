@@ -2,6 +2,8 @@
 import random
 from cells import FoodCell  # Import FoodCell directly since we need it here
 
+
+# Then create behaviours.py (Define ant behaviors):
 class Behaviour:
     def execute(self, agent, environment):
         # Define a method to be overridden by subclasses

@@ -1,5 +1,8 @@
 # cells.py
 
+
+# First, create cells.py (Most basic components):
+
 class Cell:
     def __init__(self, x, y):
         # Initialize the cell with x and y coordinates

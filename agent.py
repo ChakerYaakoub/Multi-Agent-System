@@ -1,6 +1,8 @@
 # agent.py
 from behaviours import ReproductionBehaviour, MovementBehaviour, BackToNestBehaviour
 
+
+# Next, create agent.py (Define ant types):
 class Agent:
     def __init__(self, behaviours=[], color=(0, 0, 0)):
         # Initialize the agent with a list of behaviours and a color

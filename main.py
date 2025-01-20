@@ -5,6 +5,9 @@ from cells import FoodCell
 from environment import Environment
 from interface import Interface
 
+
+# Finally, create main.py (Runs everything):
+
 def main():
     width, height = 30, 30 
     environment = Environment(width, height)

@@ -2,6 +2,9 @@
 from cells import NestCell, FoodCell
 from agent import Queen, Worker  # Import Queen and Worker directly here
 
+
+# Create environment.py (Manages the simulation):
+
 class Environment:
     def __init__(self, width, height):
         # Set the width of the environment
