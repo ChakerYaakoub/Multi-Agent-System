@@ -1,16 +1,16 @@
 # interface.py
 import pygame
 from environment import Environment
-from cells import NestCell, FoodCell  # Importer NestCell et FoodCell ici
+from cells import NestCell, FoodCell
 
 CELL_SIZE = 20
 WIDTH, HEIGHT = 600, 600
 
 class Interface:
     def __init__(self, environment):
-        # Track last step time / Suivre le temps du dernier pas
-        # Track last spawn time / Suivre le temps du dernier spawn
-        # Initialize running attribute / Initialiser l'attribut de fonctionnement
+        # Track last step time
+        # Track last spawn time 
+        # Initialize running attribute
         self.environment = environment
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -21,16 +21,16 @@ class Interface:
         self.running = True
 
     def draw(self):
-        # White background / Fond blanc
+        # White background
         self.screen.fill((255, 255, 255))
 
-        # Draw grid cells (NestCell, FoodCell) / Dessiner les cellules de la grille (NestCell, FoodCell)
+        # Draw grid cells (NestCell, FoodCell)
         for y in range(self.environment.height):
             for x in range(self.environment.width):
                 cell = self.environment.grid[y][x]
-                # Red for the nest / Rouge pour le nid
-                # Green for food / Vert pour la nourriture
-                # Light gray for empty / Gris clair pour vide
+                # Red for the nest
+                # Green for food
+                # Light gray for empty
                 if isinstance(cell, NestCell):
                     color = (255, 0, 0)
                 elif isinstance(cell, FoodCell):
@@ -43,15 +43,10 @@ class Interface:
                     (x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
                 )
 
-        # Draw agents (Queen, Worker) / Dessiner les agents (Reine, Ouvrier)
+        # Draw agents (Queen, Worker)
         for agent in self.environment.agents:
-            # Use the agent's color directly / Utiliser directement la couleur de l'agent
+            # Use the agent's color directly
             ant_color = agent.color
-            # pygame.draw.circle(
-            #     self.screen, ant_color,
-            #     (agent.position[0] * CELL_SIZE + CELL_SIZE // 2, agent.position[1] * CELL_SIZE + CELL_SIZE // 2),
-            #     CELL_SIZE // 2  # Agent size (smaller circle within the cell) / Taille de l'agent (cercle plus petit dans la cellule)
-            # )
             x_pos = agent.position[0] * CELL_SIZE
             y_pos = agent.position[1] * CELL_SIZE
            
@@ -74,48 +69,48 @@ class Interface:
 
     def update(self):
         for event in pygame.event.get():
-            # Set running to False on quit / Mettre running à False lors de la sortie
+            # Set running to False on quit
             if event.type == pygame.QUIT:
                 self.running = False
                 pygame.quit()
                 exit()
         
-        # Check if the interface is not running / Vérifier si l'interface ne fonctionne pas
+        # Check if the interface is not running
         if not self.running:
-            # Draw that the game is over / Dessiner que le jeu est terminé
+            # Draw that the game is over
             font = pygame.font.Font(None, 36)
             text = font.render("All food has been collected", True, (0, 0, 0))
-            # Center the text vertically / Centrer le texte verticalement
+            # Center the text vertically
             text_rect = text.get_rect(center=(WIDTH // 2, 18 + 18))
             
-            # Create a background rectangle that matches the text size / Créer un rectangle de fond qui correspond à la taille du texte
-            # Inflate to add padding around the text / Gonfler pour ajouter un espace autour du texte
-            # Change background color to red / Changer la couleur de fond en rouge
+            # Create a background rectangle that matches the text size
+            # Inflate to add padding around the text
+            # Change background color to red
             background_rect = text_rect.inflate(20, 10)
             pygame.draw.rect(self.screen, (255, 0, 0), background_rect)
             
-            # Use the centered text rect / Utiliser le rectangle de texte centré
+            # Use the centered text rect
             self.screen.blit(text, text_rect)
             pygame.display.flip()
-            # Exit the update method to stop further processing / Quitter la méthode de mise à jour pour arrêter le traitement
+            # Exit the update method to stop further processing
             return
 
-        # Get current time / Obtenir le temps actuel
+        # Get current time
         current_time = pygame.time.get_ticks()
 
-        # Step the environment every 500 ms (0.5 seconds) / Faire avancer l'environnement toutes les 500 ms (0,5 secondes)
+        # Step the environment every 500 ms (0.5 seconds)
         if current_time - self.last_step_time >= 90:
             self.environment.step()
-            # Update last step time / Mettre à jour le temps du dernier pas
+            # Update last step time
             self.last_step_time = current_time
 
-        # Spawn a new worker every 7 seconds / Faire apparaître un nouvel ouvrier toutes les 7 secondes
+        # Spawn a new worker every 7 seconds
         if current_time - self.last_spawn_time >= 3000:
-            # Create a new worker / Créer un nouvel ouvrier
+            # Create a new worker
             new_worker = self.environment.create_worker()
             self.environment.add_agent(new_worker)
-            # Update last spawn time / Mettre à jour le temps du dernier spawn
+            # Update last spawn time
             self.last_spawn_time = current_time
 
-        # Draw the current state / Dessiner l'état actuel
+        # Draw the current state
         self.draw()

@@ -1,0 +1,96 @@
+@startuml Ant Farm Simulation
+
+' Agents
+abstract class Agent {
+    + position: tuple
+    + color: tuple
+    + behaviours: list
+    + __init__(behaviours: list, color: tuple)
+    + add_behaviour(behaviour: Behaviour)
+}
+
+class Queen {
+    + __init__()
+}
+
+class Worker {
+    + has_food: bool
+    + __init__()
+}
+
+' Behaviours
+abstract class Behaviour {
+    + {abstract} execute(agent: Agent, environment: Environment)
+}
+
+class ReproductionBehaviour {
+    + execute(agent: Agent, environment: Environment)
+}
+
+class MovementBehaviour {
+    + execute(agent: Agent, environment: Environment)
+}
+
+class BackToNestBehaviour {
+    + execute(agent: Agent, environment: Environment)
+}
+
+' Cells
+abstract class Cell {
+    + x: int
+    + y: int
+    + __init__(x: int, y: int)
+}
+
+class NestCell {
+}
+
+class FoodCell {
+}
+
+' Environment
+class Environment {
+    + width: int
+    + height: int
+    + grid: list
+    + agents: list
+    + nest_position: tuple
+    + queen: Queen
+    + __init__(width: int, height: int)
+    + add_agent(agent: Agent)
+    + add_food(x: int, y: int)
+    + create_worker(): Worker
+    + step()
+}
+
+' Interface
+class Interface {
+    + environment: Environment
+    + screen: pygame.Surface
+    + last_step_time: int
+    + last_spawn_time: int
+    + running: bool
+    + __init__(environment: Environment)
+    + draw()
+    + update()
+}
+
+' Relationships
+Agent <|-- Queen
+Agent <|-- Worker
+Agent o-- "*" Behaviour
+
+Behaviour <|-- ReproductionBehaviour
+Behaviour <|-- MovementBehaviour
+Behaviour <|-- BackToNestBehaviour
+
+Cell <|-- NestCell
+Cell <|-- FoodCell
+
+Environment o-- "*" Agent
+Environment o-- "*" Cell
+Environment o-- "1" Queen
+
+Interface o-- "1" Environment
+
+@enduml 

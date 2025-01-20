@@ -15,10 +15,10 @@ This project is a multi-agent system simulating an ant farm. Agents represent an
 - Python 3.8+
 - Pygame
 
-Install Pygame with:
+Install Requirements with:
 
 ```bash
-pip install pygame
+pip install -r requirements.txt
 ```
 
 ## Project Structure

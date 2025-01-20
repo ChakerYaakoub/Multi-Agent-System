@@ -1,0 +1,6 @@
+# Core dependency - only pygame is actually used in the project
+pygame>=2.1.0
+
+# Optional development tools
+black>=22.3.0  # for code formatting
+flake8>=4.0.0  # for code linting 
