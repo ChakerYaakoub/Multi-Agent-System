@@ -6,6 +6,12 @@ from environment import Environment
 from interface import Interface
 
 
+# the video is here:
+# https://edit.screencastify.com/edit
+
+#  diagram :
+# https://www.planttext.com/
+
 # Finally, create main.py (Runs everything):
 
 def main():

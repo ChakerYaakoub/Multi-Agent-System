@@ -89,7 +89,7 @@ Cell <|-- FoodCell
 
 Environment o-- "*" Agent
 Environment o-- "*" Cell
-Environment o-- "1" Queen
+
 
 Interface o-- "1" Environment
 
